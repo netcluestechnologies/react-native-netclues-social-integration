@@ -1,7 +1,7 @@
 {
   "name": "react-native-netclues-social-integration",
   "version": "0.1.0",
-  "description": "The @netclues/react-native-netclues-social-integration package enables seamless integration of Google Sign-In into your React Native applications. It simplifies user authentication by providing an easy-to-use interface for signing in with Google, ensuring a secure and efficient sign-in process across both Android and iOS platforms.",
+  "description": "The @netclues/react-native-netclues-social-integration package offers easy integration for Google, Facebook, and Apple sign-ins in React Native apps, providing efficient authentication across Android and iOS platforms.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/src/index.d.ts",
@@ -44,7 +44,11 @@
     "android creadential manager",
     "oauth2",
     "netclues",
-    "social sign in"
+    "social sign in",
+    "facebook sign in",
+    "facebook login",
+    "apple sign in",
+    "apple login"
   ],
   "repository": {
     "type": "git",
