@@ -1,5 +1,5 @@
 {
-  "name": "react-native-netclues-social-integration",
+  "name": "@netclues/react-native-netclues-social-integration",
   "version": "0.1.0",
   "description": "The @netclues/react-native-netclues-social-integration package offers easy integration for Google, Facebook, and Apple sign-ins in React Native apps, providing efficient authentication across Android and iOS platforms.",
   "main": "lib/commonjs/index",
@@ -172,5 +172,9 @@
     "@invertase/react-native-apple-authentication": "^2.3.0",
     "@react-native-google-signin/google-signin": "^12.2.1",
     "react-native-fbsdk": "^3.0.0"
+  },
+  "directories": {
+    "example": "example",
+    "lib": "lib"
   }
 }
