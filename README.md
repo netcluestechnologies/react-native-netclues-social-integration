@@ -6,9 +6,11 @@
 [![npm version](https://img.shields.io/npm/v/@netclues/react-native-netclues-social-integration.svg?style=flat-square)](https://www.npmjs.com/package/@netclues/react-native-netclues-social-integration)
 [![npm downloads](https://img.shields.io/npm/dt/@netclues/react-native-netclues-social-integration.svg?style=flat-square)](https://www.npmjs.com/package/@netclues/react-native-netclues-social-integration)
 [![Google Sign-In](https://img.shields.io/badge/Google%20Sign--In-Used-blue.svg?style=flat-square)](https://github.com/react-native-google-signin/google-signin)
+[![Apple Sign-In](https://img.shields.io/badge/Apple%20Sign--In-Used-blue.svg?style=flat-square)](https://github.com/invertase/react-native-apple-authentication)
+[![Facebook Sign-In](https://img.shields.io/badge/Facebook%20Sign--In-Used-blue.svg?style=flat-square)](https://github.com/facebook/react-native-fbsdk)
 [![license](https://img.shields.io/npm/l/@netclues/react-native-netclues-social-integration.svg?style=flat-square)](https://www.npmjs.com/package/@netclues/react-native-netclues-social-integration)
 
-The @netclues/react-native-netclues-social-integration package enables seamless integration of Google Sign-In into your React Native applications. It simplifies user authentication by providing an easy-to-use interface for signing in with Google, ensuring a secure and efficient sign-in process across both Android and iOS platforms.
+The @netclues/react-native-netclues-social-integration package offers easy integration for Google, Facebook, and Apple sign-ins in React Native apps, providing efficient authentication across Android and iOS platforms.
 
 ## Installation
 
@@ -26,13 +28,15 @@ yarn add  @netclues/react-native-netclues-social-integration
 
 ## Configuration
 
+### Google
+
 This configuration file defines the settings required for integrating Google Sign-In with the @netclues/react-native-netclues-social-integration package in a React Native application. It includes various options such as scopes, web client ID, offline access, hosted domain, force code for refresh token, account name, and iOS client ID to customize and manage the Google Sign-In process.
 
 ```js
 
 // googleSigninConfig.ts
 
-import { GoogleSigninConfig } from "@netclues/react-native-netclues-social-integration/lib/typescript/src/google/types";
+import { GoogleSigninConfig } from "@netclues/react-native-netclues-social-integration";
 
 const googleSigninConfig: GoogleSigninConfig = {
     scopes: [],  // OAuth2 scopes to request
@@ -59,7 +63,26 @@ useEffect(() => {
 }, []);
 
 ```
+
+### Facebook
+
+Use setPermissions to dynamically configure permissions for Facebook sign-in with the @netclues/react-native-netclues-social-integration package. Default permissions include public_profile and email, with options to add user_friends for additional data access.
+
+```js
+
+import { useFacebookLogin } from "@netclues/react-native-netclues-social-integration";
+
+const { setPermissions } = useFacebookLogin();
+
+useEffect(() => {
+  setPermissions(['public_profile', 'email', 'user_friends']);
+}, []);
+
+```
+
 ## Usage
+
+### Google
 
 The useGoogleSignIn hook from @netclues/react-native-netclues-social-integration facilitates seamless integration of Google Sign-In functionality into React Native applications. It provides signIn and signOut methods for handling user authentication with Google, managing user information and errors via state variables like userInfo and error.
 
@@ -85,9 +108,9 @@ const handleSignOut = async () => {
 };
 
 ```
-## userInfo
+#### userInfo
 
-Example userInfo which is returned after successful sign in.
+Example userInfo which is returned after successful sign in with Google.
 
 ```js
 
@@ -107,6 +130,67 @@ Example userInfo which is returned after successful sign in.
 
 ```
 
+### Facebook
+
+The useFacebookLogin hook from @netclues/react-native-netclues-social-integration facilitates seamless integration of Facebook Sign-In functionality into React Native applications. It provides loginWithFacebook, logoutFromFacebook, and setPermissions methods for handling user authentication with Facebook, managing user information and errors via state variables like userInfo and error.
+
+```js
+
+import { useFacebookLogin,FacebookUserInfo } from '@netclues/react-native-netclues-social-integration';
+
+ const [userInfo, setUserInfo] = useState<FacebookUserInfo | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const { loginWithFacebook, logoutFromFacebook, setPermissions } = useFacebookLogin();
+
+  useEffect(() => {
+    setPermissions(['public_profile', 'email', 'user_friends']);
+  }, []);
+
+  const handleLogin = () => {
+    loginWithFacebook(
+      (userInfo: FacebookUserInfo) => {
+        // Handle successful sign-in
+        setUserInfo(userInfo)
+      },
+      (error: string) => {
+        // Handle error
+        console.log('Error:', error);
+        setError(error)
+      }
+    );
+  };
+
+  const handleLogout = () => {
+    logoutFromFacebook();
+    setUserInfo(null);
+    setError(null);
+  };
+
+```
+
+### Apple
+
+The useAppleSignIn hook from @netclues/react-native-netclues-social-integration facilitates seamless integration of Apple Sign-In functionality into React Native applications. It provides the performAppleSignIn method for handling user authentication with Apple, managing user information and errors via the AppleSignInResponse object.
+
+```js
+
+import { useAppleSignIn, AppleSignInResponse } from '@netclues/react-native-netclues-social-integration';
+
+const { performAppleSignIn } = useAppleSignIn();
+
+const handleAppleSignIn = async () => {
+  const response: AppleSignInResponse = await performAppleSignIn();
+  if (response.success) {
+    // Handle successful sign-in
+    console.log('User Info:', response.userInfo);
+  } else {
+    // Handle error
+    console.log('Error:', response.error);
+  }
+};
+
+```
 ## License
 
 (MIT)
